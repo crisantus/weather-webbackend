@@ -8,7 +8,7 @@ dotenv.config();
 const envSchema = z.object({
   DATABASE_URL: z.string().min(1),
   JWT_SECRET: z.string().min(16),
-  JWT_EXPIRES_IN: z.string().default("7d"),
+  JWT_EXPIRES_IN: z.string().default("30d"),
   PORT: z.coerce.number().default(5000),
   CLIENT_URL: z.string().url().default("http://localhost:3000"),
   OPENWEATHER_API_KEY: z.string().min(1),
