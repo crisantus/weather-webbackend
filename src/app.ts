@@ -1,6 +1,4 @@
-import cors from "cors";
 import express from "express";
-import { env } from "./config/env.js";
 import { authRoutes } from "./modules/auth/auth.routes.js";
 import { historyRoutes } from "./modules/history/history.routes.js";
 import { locationRoutes } from "./modules/location/location.routes.js";
@@ -10,31 +8,7 @@ import { errorMiddleware } from "./middlewares/error.middleware.js";
 // Create the Express application that holds middleware and routes.
 export const app = express();
 
-// const allowedOrigins = env.CLIENT_URL.split(",")
-//   .map((origin) => origin.trim().replace(/\/$/, ""))
-//   .filter(Boolean);
-
-// const corsOptions: cors.CorsOptions = {
-//   origin(origin, callback) {
-//     if (!origin) {
-//       callback(null, true);
-//       return;
-//     }
-
-//     const normalizedOrigin = origin.replace(/\/$/, "");
-//     const isAllowedOrigin =
-//       allowedOrigins.includes(normalizedOrigin) ||
-//       /^https:\/\/weatherwebappfrontend(?:-[a-z0-9-]+)?\.vercel\.app$/i.test(normalizedOrigin);
-
-//     callback(isAllowedOrigin ? null : new Error(`CORS blocked origin: ${origin}`), isAllowedOrigin);
-//   },
-//   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-//   allowedHeaders: ["Content-Type", "Authorization"],
-//   optionsSuccessStatus: 204
-// };
-
-// Allow requests from the frontend URL(s), then allow JSON request bodies.
-// app.use(cors(corsOptions));
+// CORS is disabled for now while testing deployment requests.
 app.use(express.json());
 
 // Simple endpoint for checking that the API server is running.
