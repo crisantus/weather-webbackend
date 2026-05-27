@@ -30,3 +30,10 @@ app.use("/api/weather-history", historyRoutes);
 
 // Error middleware stays last so it can catch errors from every route above.
 app.use(errorMiddleware);
+
+
+
+
+
+
+
