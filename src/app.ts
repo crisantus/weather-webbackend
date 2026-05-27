@@ -22,6 +22,14 @@ app.get("/health", (_req, res) => {
   });
 });
 
+// Public test route for quickly checking the deployed backend in a browser.
+app.get("/test", (_req, res) => {
+  res.status(200).json({
+    status: true,
+    message: "Backend is live"
+  });
+});
+
 // Attach each feature module to its API path.
 app.use("/api/auth", authRoutes);
 app.use("/api/locations", locationRoutes);
