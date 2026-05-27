@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Database type. The actual DATABASE_URL lives in prisma.config.ts for Prisma 7.
+datasource db {
+  provider = "postgresql"
+}
+
+// A registered app user.
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+
+  // One user can have many saved locations and weather history records.
+  locations Location[]
+  histories WeatherHistory[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// A city/location saved by a user.
+model Location {
+  id        String  @id @default(uuid())
+  userId    String
+  name      String
+  country   String?
+  latitude  Float?
+  longitude Float?
+  isDefault Boolean @default(false)
+
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  histories WeatherHistory[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+// A saved weather lookup created whenever a user checks the weather.
+model WeatherHistory {
+  id           String  @id @default(uuid())
+  userId       String
+  locationId   String?
+  locationName String
+  country      String?
+  temperature  Float
+  condition    String
+  humidity     Int
+  windSpeed    Float
+  pressure     Int?
+  feelsLike    Float?
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  location Location? @relation(fields: [locationId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([locationId])
+}
