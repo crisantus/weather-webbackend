@@ -10,7 +10,7 @@ const envSchema = z.object({
   JWT_SECRET: z.string().min(16),
   JWT_EXPIRES_IN: z.string().default("30d"),
   PORT: z.coerce.number().default(5000),
-  CLIENT_URL: z.string().url().default("http://localhost:3000"),
+  CLIENT_URL: z.string().min(1).default("http://localhost:3000"),
   OPENWEATHER_API_KEY: z.string().min(1),
   OPENWEATHER_BASE_URL: z.string().url().default("https://api.openweathermap.org/data/2.5")
 });
